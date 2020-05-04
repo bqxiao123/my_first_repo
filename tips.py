@@ -162,7 +162,20 @@ a=0.00002
 
 'i am %s,i am %u age old' %('xiao',40)
 'i am {0},i am {1} age old'.format('xiao',40)
+df.applymap('{:,.2f}'.format) #------applymap 主要是针对df的每个元素
+df.apply('{:,.2f}'.format) #---------apply 主要是基于整列操作，所以这儿会报r错。
 
+
+#--list map 函数操作方法例子
+import numpy as np
+import pandas as pd
+df=pd.DataFrame({'a':[1,2,np.nan,4],'a1':[0.5,0.5,0.5,0.5]})
+print('origin df')
+print(df)
+print()
+df.iloc[:,1]=list(map(lambda x,y:0 if np.isnan(x) else y, df.iloc[:,0],df.iloc[:,1]))
+print('after map df')
+print(df)
 #%%
 #%% f-string 用法
 name = 'Eric'
@@ -215,19 +228,25 @@ df = pd.DataFrame({"x":["a","b","a","b"],"i":i})
 
 
 #%%
-#利用map函数修改dataframe的例子
-import numpy as np
-import pandas as pd
-df=pd.DataFrame({'a':[1,2,np.nan,4],'a1':[0.5,0.5,0.5,0.5]})
-print('origin df')
-print(df)
-print()
-df.iloc[:,1]=list(map(lambda x,y:0 if np.isnan(x) else y, df.iloc[:,0],df.iloc[:,1]))
-print('after map df')
-print(df)
-
-
-#%%
 #时间序列例子https://blog.csdn.net/qq_40587575/article/details/81205873
 
+d = ['xiaoquanbao']
 
+while True:
+	name = input('请输入您的用户名：')
+	if name in d:
+		break
+	else:
+		print('您输入的用户名不存在，请重新输入')
+		continue
+    
+count = 5
+while count:
+	password = input('请输入您的密码：')
+	if d[name] == password:
+		print('进入系统')
+		break
+	else:
+		count -= 1
+		print('您输入的密码不正确，还有{}次输入机会'.format(count))
+		continue

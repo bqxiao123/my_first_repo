@@ -22,8 +22,6 @@ print(strp_time)
 timestamp = 1528797322                          #----------timestamp
 date_time = datetime.fromtimestamp(timestamp)   #----------timestamp to datetime
 print(date_time)
-
-#%%
 # more format with datetime
 stamp = datetime(2018, 7, 25, 10, 20,15) 
 stamp.strftime('%A')
@@ -63,3 +61,51 @@ stamp.strftime('%A')
 #%y 不带世纪的十进制年份（值从0到99） 
 #%Y 带世纪部分的十制年份 
 #%z，%Z 时区名称，如果不能得到时区名称则返回空字符。 
+#%%
+#时间序列基础
+import pandas as pd 
+import numpy as np
+from datetime import datetime
+dates = [datetime(2011,1,2), datetime(2011,1,5),
+        datetime(2011,1,7), datetime(2011,1,8),
+        datetime(2011,1,10), datetime(2011,1,12)
+         ]
+np.random.seed(666)
+ts = pd.Series(np.random.randn(6), index = dates)   #使用时间戳作为索引
+print(ts)
+print(ts.index) 
+print(ts[ts.index[2]])  # 1.1734680120920244 选取第三行的元素
+print(ts['20110105'])   # 0.47996600310104814
+ 
+#对于较长的时间序列， 可以传入年， 或者 月来进行索引
+longer_date = pd.Series(np.random.randn(1000), index = pd.date_range('2012-01-01', periods=1000))
+print(longer_date.shape)    # (1000,)
+print(longer_date[:3])  #打印出前3项出来
+# 2012-01-01    0.019028
+# 2012-01-02   -0.943761
+# 2012-01-03    0.640573
+# Freq: D, dtype: float64
+print(longer_date['2014'][:3])  #依据年份进行索引， 打印出前3 项
+# 2014-01-01    1.154235
+# 2014-01-02    0.360002
+# 2014-01-03   -1.197186
+# Freq: D, dtype: float64
+print(longer_date['2014-05'][:3])   #依据年 月
+# 2014-05-01   -0.036317
+# 2014-05-02    0.134003
+# 2014-05-03   -0.863556
+# Freq: D, dtype: float64
+ 
+#使用时间戳进行切片
+print(longer_date['2014-03-03':'2014-03-06'])   #可以看到 3号 和 6 号都包括了
+# 2014-03-03   -1.157900
+# 2014-03-04    0.690954
+# 2014-03-05    2.187638
+# 2014-03-06   -0.194585
+# Freq: D, dtype: float64
+ 
+print(ts.truncate(after = '1/6/2011'))  #定义最后一项是2011 -1-6 选取之前的日期
+# 2011-01-02    0.824188
+# 2011-01-05    0.479966
+# dtype: float64
+#%%
