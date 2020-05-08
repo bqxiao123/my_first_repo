@@ -227,6 +227,7 @@ i = [pd.Interval(x[0],x[1]) for x in r]
 df = pd.DataFrame({"x":["a","b","a","b"],"i":i})
 
 
+
 #%%
 #时间序列例子https://blog.csdn.net/qq_40587575/article/details/81205873
 
@@ -250,3 +251,32 @@ while count:
 		count -= 1
 		print('您输入的密码不正确，还有{}次输入机会'.format(count))
 		continue
+
+#%%
+import pandas as pd
+s = pd.Series(data=[1, None, 4, 1],
+              index=['A', 'B', 'C', 'D'])
+#s.argmin()
+s.idxmin()
+
+s1=pd.DataFrame(s,columns=['test'])
+s1.idxmin()
+
+#%%
+#-------LabelEncoder -----------------------
+from sklearn import preprocessing
+encode = preprocessing.LabelEncoder()
+encode.fit_transform(['one', 'two', 'three']) # encoding .................
+keys = encode.classes_                        # encoding class .............
+values = encode.transform(encode.classes_)
+dictionary = dict(zip(keys, values))
+print(dictionary)
+
+#%%
+import pandas as pd
+data=pd.read_csv('D:\\github\\my_first_repo\\data\\train_data.csv')
+data.info()
+xx=data[['x_027','x_028']]
+xx.corr(method='kendall') #用于反映分类变量相关性的指标
+xx.corr(method='pearson') #默认值，线性相关--判断两个变量是否在一条直线上
+xx.corr(method='spearman') #秩相关。
