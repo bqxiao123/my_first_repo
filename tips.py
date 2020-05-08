@@ -5,6 +5,16 @@ Created on Wed Oct  9 09:38:18 2019
 @author: admin
 
 """
+#################################################################
+#github操作步骤：
+#git add .             -----------添加所有修改
+#git commit -m "xxxxx" -----------提交到临时仓库
+#git push              -----------推送至github对应的repositories
+#################################################################
+#%%
+import os
+os.getcwd()                         # get current working directory 获取当前工作目录 
+os.chdir('D:\\github\\my_first_repo')    # change working directory 加上路径便可更改工作目录
 #%%
 import pandas as pd
 pd.set_option ('display.max_columns', 200)
