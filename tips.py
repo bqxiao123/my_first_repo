@@ -13,8 +13,28 @@ Created on Wed Oct  9 09:38:18 2019
 #################################################################
 #%%
 import os
-os.getcwd()                         # get current working directory 获取当前工作目录 
+os.getcwd()                              # get current working directory 获取当前工作目录 
 os.chdir('D:\\github\\my_first_repo')    # change working directory 加上路径便可更改工作目录
+#%%
+# 0 对应了False, 非0则对应True
+np.array([1,0]).astype(np.bool)
+
+#%%
+#相关性筛选
+import seaborn as sns
+dt=pd.read_csv("data\\train_data.csv")
+xx1=dt.corr().abs()
+plt.subplots(figsize=(18,12))
+upper1 = xx1.where(np.triu(np.ones(xx1.shape), k=1).astype(np.bool))
+to_drop = [column for column in xx1.columns if any(upper1[column] > 0.6)]
+#print(to_drop)
+print('%d columns to remove.' % (len(to_drop)))
+dt_drop_cor=dt.drop(to_drop,axis=1)
+sns.heatmap(dt_drop_cor.corr())
+feature_drop_cor=dt_drop_cor.columns.to_list()
+print("%s features left after filter with correlation" %len(feature_drop_cor))
+#heatmap
+
 #%%
 import pandas as pd
 pd.set_option ('display.max_columns', 200)
@@ -27,11 +47,9 @@ import warnings
 warnings.filterwarnings('ignore')
 
 #%%
-
-
 ##write pd.DataFrame to xlsx file with sheet_name
 data.to_excel("output.xlsx",sheet_name='tseq')
-
+pd.read_excel('data\\illustration.XLSX',skiprows=[0]).fillna(method='ffill').drop([0])
 #%%
 print('ab%s%s' %(5,5))#格式输出
 #%%
@@ -43,8 +61,6 @@ x=[1,2,3,4,5,6]
 print([a for a in x if a > 2])
 
 print([a if a < 3 else 3 for a in x])
-
-
 
 #%%
 import pandas as pd
