@@ -18,9 +18,13 @@ os.chdir('D:\\github\\my_first_repo')    # change working directory 加上路径
 #%%
 # 0 对应了False, 非0则对应True
 np.array([1,0]).astype(np.bool)
+#%%
+x=pd.DataFrame({"x":[0,2,3,np.nan,4],"y":[11,23,np.nan,15,12]})
+x.dropna(axis=0,subset=["y"])
 
 #%%
 #相关性筛选
+import matplotlib.pyplot as plt
 import seaborn as sns
 dt=pd.read_csv("data\\train_data.csv")
 xx1=dt.corr().abs()
@@ -262,7 +266,8 @@ d = ['xiaoquanbao']
 while True:
 	name = input('请输入您的用户名：')
 	if name in d:
-		break
+		breake
+        
 	else:
 		print('您输入的用户名不存在，请重新输入')
 		continue
@@ -306,3 +311,36 @@ xx=data[['x_027','x_028']]
 xx.corr(method='kendall') #用于反映分类变量相关性的指标
 xx.corr(method='pearson') #默认值，线性相关--判断两个变量是否在一条直线上
 xx.corr(method='spearman') #秩相关。
+
+
+#%%
+##class
+class Reptile:
+    title = '爬行动物'
+    def crawl(self):
+        print(self.title)
+
+class Snake(Reptile):
+    def crawl_a(self):
+        print(self.title)
+
+p = Snake()
+p.crawl()  # 爬行动物
+p.crawl_a() # 爬行动物
+print(p.title) # 爬行动物
+#%%
+#执行入口在 if __name__=="__main__"
+#此前的函数可以不分先后。
+def foo():
+    bar()
+ 
+def bar():
+    print("hello")
+ 
+if __name__ == '__main__':
+    foo()
+
+#%%
+#在模块中，函数的先后顺序没有关系，比如下面的模块test_def
+import test_def
+foo()
